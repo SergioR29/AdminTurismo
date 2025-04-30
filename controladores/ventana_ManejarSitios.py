@@ -93,7 +93,7 @@ class ManejarSitios(QWidget, Ui_manejarSitios):
         self.ciudadComboBox_Editar.hide()
 
         self.edicion = False
-        if self.IDSitio > 0:
+        if self.IDSitio > 0 and len(self.nombreSitio.text()) > 0:
             idC = self.conexion.execute("SELECT c.ID FROM Ciudades c WHERE c.Nombre = ?", (self.ciudadComboBox_Editar.currentText(),)).fetchone()
             idCiudad = int(idC[0])
             try:
@@ -124,6 +124,10 @@ class ManejarSitios(QWidget, Ui_manejarSitios):
                 self.conexion.rollback()
 
                 QMessageBox.warning(None, "Resultado", "No se pudieron actualizar los datos del sitio")
+        else:
+            QMessageBox.warning(None, "Aviso", "Nombre del sitio vacío")
+            self.edicion = True
+            self.editar()
 
     def imagenSitio(self):
         # Función que permite al usuario seleccionar una imagen para añadir un sitio

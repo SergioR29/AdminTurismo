@@ -109,7 +109,7 @@ class ManejarCiudades(QWidget, Ui_manejarCiudades):
         self.desc_ciudad.setReadOnly(True)
 
         self.editarCty = False
-        if self.IDCiudad > 0:
+        if self.IDCiudad > 0 and len(self.nombreCiudad.text()) > 0:
             try:
                 self.conexion.execute("UPDATE Ciudades SET Nombre = ?, Imagen = ?, Descripcion = ? WHERE ID = ?", (self.nombreCiudad.text(), self.imagen, self.desc_ciudad.toPlainText(), self.IDCiudad))
                 self.conexion.commit()
@@ -139,6 +139,10 @@ class ManejarCiudades(QWidget, Ui_manejarCiudades):
 
                 QMessageBox.warning(None, "Resultado", "No se pudieron actualizar los datos de la ciudad")
                 self.recargar.hide()
+        else:
+            QMessageBox.warning(None, "Aviso", "Nombre de la ciudad vacío")
+            self.editarCty = True
+            self.editar()
 
     def imagenCiudad(self):
         # Función que permite al usuario seleccionar una imagen para añadir un sitio
