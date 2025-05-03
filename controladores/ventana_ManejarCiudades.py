@@ -274,6 +274,7 @@ class ManejarCiudades(QWidget, Ui_manejarCiudades):
         self.ventana = AgregarCiudades()
         self.ventana.closing.connect(self.cerrarVentana)
         self.ventana.descartar.clicked.connect(self.recargar.hide)
+        self.ventana.guardarCiudad.clicked.connect(self.cargarCiudades)
         self.ventana.show()
 
         self.recargar.show()

@@ -305,13 +305,12 @@ class ManejarSitios(QWidget, Ui_manejarSitios):
         ID = 0
         if idC != None:
             ID = int(idC[0])
-
             self.close()
-            self.recargar.show()
 
             self.ventana = AgregarSitios(ID)
             self.ventana.closing.connect(self.cerrarVentana)
             self.ventana.descartar.clicked.connect(self.recargar.hide)
+            self.ventana.guardarSitio.clicked.connect(self.cargarSitiosCiudad)
             self.ventana.show()
 
         elif self.ciudadComboBox.currentIndex() == -1:
