@@ -95,7 +95,6 @@ class ManejarCiudades(QWidget, Ui_manejarCiudades):
             self.ciudadComboBox.setCurrentIndex(-1)
             self.nombreCiudad.setText("")
             self.desc_ciudad.setPlainText("")
-            self.frame_ciudad.hide()
         else:
             QMessageBox.warning(None, "Aviso", "Error de conexión a la BD")
             raise InitialisationError("Error de conexión a la BD.")
@@ -208,14 +207,11 @@ class ManejarCiudades(QWidget, Ui_manejarCiudades):
                     self.conexion.execute("DELETE FROM Sitios WHERE Ciudad = ?", (int(idC[0]),))
                     self.conexion.commit()
 
-                    self.frame_ciudad.hide()
                     self.ciudadComboBox.clear()
                     self.desc_ciudad.setPlainText("")
                     self.img_ciudad.setPixmap(QPixmap())
 
-                    self.recargar.show()
                     self.cargarCiudades()
-
                     QMessageBox.information(None, "Resultado", "Ciudad seleccionada eliminada correctamente")
                     
                     # Poner la nueva versión de la BD
@@ -252,7 +248,6 @@ class ManejarCiudades(QWidget, Ui_manejarCiudades):
             ciudades = self.conexion.execute("SELECT Nombre FROM Ciudades ORDER BY Nombre")
             for ciudad in ciudades.fetchall():
                 self.ciudadComboBox.addItem(ciudad[0])
-                self.frame_ciudad.hide()
                 self.ciudadComboBox.setCurrentIndex(-1)
 
             if self.ciudadComboBox.count() <= 0:

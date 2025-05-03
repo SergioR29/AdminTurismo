@@ -193,8 +193,6 @@ class ManejarSitios(QWidget, Ui_manejarSitios):
                 self.sitioComboBox.clear()
                 self.desc_Sitio.setPlainText("")
                 self.img_Sitio.setPixmap(QPixmap())
-
-                self.recargar.show()
                 self.cargarSitiosCiudad()
 
                 self.eliminarSt = True
@@ -261,7 +259,6 @@ class ManejarSitios(QWidget, Ui_manejarSitios):
                 sitios = self.conexion.execute("SELECT s.Nombre FROM Sitios s WHERE s.Ciudad = ? ORDER BY s.Nombre", (int(ciudadID[0]),)).fetchall()
                 for sitio in sitios:
                     self.sitioComboBox.addItem(sitio[0])
-                    self.frame_sitio.hide()
                     self.sitioComboBox.setCurrentIndex(-1)
 
                 if self.sitioComboBox.count() <= 0:
@@ -274,7 +271,6 @@ class ManejarSitios(QWidget, Ui_manejarSitios):
             else:
                 self.aviso_ciudadNoSeleccionada.setText(self.ciudadComboBox.currentText() + " NO TIENE SITIOS ASOCIADOS")
                 self.aviso_ciudadNoSeleccionada.show()
-                self.frame_sitio.hide()
 
     def ocultarMensaje(self):
         # Función que oculta el mensaje de ciudad no seleccionada cuando el usuario selecciona un sitio
