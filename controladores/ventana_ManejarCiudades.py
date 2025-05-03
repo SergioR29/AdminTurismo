@@ -212,7 +212,9 @@ class ManejarCiudades(QWidget, Ui_manejarCiudades):
                     self.ciudadComboBox.clear()
                     self.desc_ciudad.setPlainText("")
                     self.img_ciudad.setPixmap(QPixmap())
+
                     self.recargar.show()
+                    self.cargarCiudades()
 
                     QMessageBox.information(None, "Resultado", "Ciudad seleccionada eliminada correctamente")
                     
@@ -245,6 +247,8 @@ class ManejarCiudades(QWidget, Ui_manejarCiudades):
     def cargarCiudades(self):
         # Función que carga las ciudades guardadas en la BD
         if self.conexion:
+            self.ciudadComboBox.clear()
+
             ciudades = self.conexion.execute("SELECT Nombre FROM Ciudades ORDER BY Nombre")
             for ciudad in ciudades.fetchall():
                 self.ciudadComboBox.addItem(ciudad[0])
@@ -269,6 +273,7 @@ class ManejarCiudades(QWidget, Ui_manejarCiudades):
 
         self.ventana = AgregarCiudades()
         self.ventana.closing.connect(self.cerrarVentana)
+        self.ventana.descartar.clicked.connect(self.recargar.hide)
         self.ventana.show()
 
         self.recargar.show()

@@ -193,7 +193,9 @@ class ManejarSitios(QWidget, Ui_manejarSitios):
                 self.sitioComboBox.clear()
                 self.desc_Sitio.setPlainText("")
                 self.img_Sitio.setPixmap(QPixmap())
+
                 self.recargar.show()
+                self.cargarSitiosCiudad()
 
                 self.eliminarSt = True
                 QMessageBox.information(None, "Resultado", "Sitio seleccionado de la ciudad " + self.ciudadComboBox.currentText() + " eliminado")
@@ -309,6 +311,7 @@ class ManejarSitios(QWidget, Ui_manejarSitios):
 
             self.ventana = AgregarSitios(ID)
             self.ventana.closing.connect(self.cerrarVentana)
+            self.ventana.descartar.clicked.connect(self.recargar.hide)
             self.ventana.show()
 
         elif self.ciudadComboBox.currentIndex() == -1:
