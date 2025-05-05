@@ -1,8 +1,8 @@
-import sys, os, pathlib, sqlite3, shutil
+import sys, os, sqlite3, shutil
 from pathlib import Path
 from PySide6.QtWidgets import QApplication, QWidget, QMessageBox, QFileDialog
 from PySide6.QtGui import QPixmap, QIcon
-from PySide6.QtCore import QBuffer, QIODevice, QByteArray, Signal
+from PySide6.QtCore import QBuffer, QIODevice, Signal
 from modelos.InitialisationError import InitialisationError
 from vistas.agregarSitios_ui import Ui_agregarSitios
 
@@ -66,7 +66,7 @@ class AgregarSitios(QWidget, Ui_agregarSitios):
                 self.conexion.execute("INSERT INTO Sitios VALUES (?, ?, ?, ?, ?)", (nuevoID, self.nombreLineEdit.text(), self.desc_sitio.toPlainText(), self.imagen, idCiudad,))
                 self.conexion.commit()
 
-                QMessageBox.information(None, "Resultado", "Sitio registrado correctamente")
+                QMessageBox.information(self, "Resultado", "Sitio registrado correctamente")
 
                 # Poner la nueva versión de la BD
                 verBD = self.conexion.execute("SELECT MAX(Ver) FROM VersionTurismo").fetchone()
@@ -88,20 +88,20 @@ class AgregarSitios(QWidget, Ui_agregarSitios):
                 print(e.sqlite_errorname)
                 self.conexion.rollback()
 
-                QMessageBox.warning(None, "Aviso", "Esa sitio existe, utiliza otro nombre diferente")
+                QMessageBox.warning(self, "Aviso", "Esa sitio existe, utiliza otro nombre diferente")
 
             except sqlite3.Error as e:
                 print(e.sqlite_errorcode)
                 print(e.sqlite_errorname)
                 self.conexion.rollback()
 
-                QMessageBox.warning(None, "Resultado", "Error al registrar el sitio")
+                QMessageBox.warning(self, "Resultado", "Error al registrar el sitio")
         else:
             if len(self.nombreLineEdit.text()) <= 0:
-                QMessageBox.warning(None, "Resultado", "No se ha introducido el nombre del sitio")
+                QMessageBox.warning(self, "Resultado", "No se ha introducido el nombre del sitio")
 
             if self.ciudadComboBox.currentIndex() == -1:
-                QMessageBox.warning(None, "Resultado", "No se ha introducido la ciudad del sitio")
+                QMessageBox.warning(self, "Resultado", "No se ha introducido la ciudad del sitio")
 
     def retroceder(self):
         # Función que permite al usuario cancelar el guardado del sitio introducido
@@ -136,9 +136,9 @@ class AgregarSitios(QWidget, Ui_agregarSitios):
                 self.ciudadComboBox.setCurrentIndex(-1)
 
             if self.ciudadComboBox.count() <= 0:
-                QMessageBox.warning(None, "Aviso", "No hay datos de ciudades guardadas, añade una pulsando al botón correspondiente")
+                QMessageBox.warning(self, "Aviso", "No hay datos de ciudades guardadas, añade una pulsando al botón correspondiente")
         else:
-            QMessageBox.warning(None, "Aviso", "Error de conexión a la BD")
+            QMessageBox.warning(self, "Aviso", "Error de conexión a la BD")
             raise InitialisationError("Error de conexión a la BD.")
 
     def closeEvent(self, event):

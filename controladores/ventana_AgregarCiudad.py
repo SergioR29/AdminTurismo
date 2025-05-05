@@ -1,9 +1,8 @@
-import sys, os, pathlib, sqlite3, shutil
+import sys, os, sqlite3, shutil
 from pathlib import Path
 from PySide6.QtWidgets import QApplication, QWidget, QMessageBox, QFileDialog
 from PySide6.QtGui import QPixmap, QIcon
-from PySide6.QtCore import QBuffer, QIODevice, QByteArray, Signal
-from modelos.InitialisationError import InitialisationError
+from PySide6.QtCore import QBuffer, QIODevice, Signal
 from vistas.agregarCiudades_ui import Ui_agregarCiudades
 
 class AgregarCiudades(QWidget, Ui_agregarCiudades):
@@ -61,7 +60,7 @@ class AgregarCiudades(QWidget, Ui_agregarCiudades):
                 self.conexion.execute("INSERT INTO Ciudades VALUES (?, ?, ?, ?)", (nuevoID, self.nombreLineEdit.text(), self.imagen, self.desc_ciudad.toPlainText()))
                 self.conexion.commit()
 
-                QMessageBox.information(None, "Resultado", "Ciudad registrada correctamente")
+                QMessageBox.information(self, "Resultado", "Ciudad registrada correctamente")
 
                 # Poner la nueva versión de la BD
                 verBD = self.conexion.execute("SELECT MAX(Ver) FROM VersionTurismo").fetchone()
@@ -83,16 +82,16 @@ class AgregarCiudades(QWidget, Ui_agregarCiudades):
                 print(e.sqlite_errorname)
                 self.conexion.rollback()
 
-                QMessageBox.warning(None, "Aviso", "Esa ciudad existe, utiliza otro nombre diferente")
+                QMessageBox.warning(self, "Aviso", "Esa ciudad existe, utiliza otro nombre diferente")
 
             except sqlite3.Error as e:
                 print(e.sqlite_errorcode)
                 print(e.sqlite_errorname)
                 self.conexion.rollback()
 
-                QMessageBox.warning(None, "Resultado", "Error al registrar la ciudad")
+                QMessageBox.warning(self, "Resultado", "Error al registrar la ciudad")
         else:
-            QMessageBox.warning(None, "Resultado", "No se ha intorducido el nombre de la ciudad")
+            QMessageBox.warning(self, "Resultado", "No se ha intorducido el nombre de la ciudad")
     
     def retroceder(self):
         # Función que permite al usuario cancelar el guardado del sitio introducido

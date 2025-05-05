@@ -1,8 +1,6 @@
-import sys, os, pathlib
-from pathlib import Path
+import sys, os
 from PySide6.QtWidgets import QApplication, QMainWindow
 from PySide6.QtGui import QPixmap
-from PySide6.QtCore import Signal
 from vistas.main_ui import Ui_Inicio
 from modelos.InitialisationError import InitialisationError
 
