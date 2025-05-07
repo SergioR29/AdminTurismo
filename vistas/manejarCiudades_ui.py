@@ -186,14 +186,11 @@ class Ui_manejarCiudades(object):
         icon4.addFile(u"../recursos/iconos/ic_imagen.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.seleccionarImagen.setIcon(icon4)
         self.seleccionarImagen.setIconSize(QSize(28, 26))
-        self.recargar = QPushButton(self.frame)
-        self.recargar.setObjectName(u"recargar")
-        self.recargar.setGeometry(QRect(310, 110, 31, 31))
-        self.recargar.setStyleSheet(u"border:none;")
-        icon5 = QIcon()
-        icon5.addFile(u"../recursos/iconos/refrescar.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.recargar.setIcon(icon5)
-        self.recargar.setIconSize(QSize(32, 32))
+        self.aviso = QLabel(self.frame)
+        self.aviso.setObjectName(u"aviso")
+        self.aviso.setGeometry(QRect(320, 120, 211, 21))
+        self.aviso.setFont(font3)
+        self.aviso.setStyleSheet(u"color: rgb(255, 255, 0);")
 
         self.retranslateUi(manejarCiudades)
 
@@ -213,6 +210,6 @@ class Ui_manejarCiudades(object):
         self.label_2.setText(QCoreApplication.translate("manejarCiudades", u"DESCRIPCI\u00d3N", None))
         self.guardarCambios.setText(QCoreApplication.translate("manejarCiudades", u"  Guardar cambios", None))
         self.seleccionarImagen.setText(QCoreApplication.translate("manejarCiudades", u" Seleccionar imagen...", None))
-        self.recargar.setText("")
+        self.aviso.setText(QCoreApplication.translate("manejarCiudades", u"SELECCIONE UNA CIUDAD PRIMERO", None))
     # retranslateUi
 

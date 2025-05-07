@@ -19,13 +19,16 @@ class ManejarCiudades(QWidget, Ui_manejarCiudades):
         self.imagen = None
         self.eliminarCty = False
         self.editarCty = False
+        self.cityEditada = False
         self.IDCiudad = 0
+        self.vecesRegistrar = 0
 
         # Configuraciones menores
         self.nombreCiudad.setStyleSheet("color:white;background-color: rgb(30, 30, 30);border:none;")
         self.ciudadComboBox.setCurrentIndex(-1)
         self.seleccionarImagen.hide()
         self.guardarCambios.hide()
+        self.aviso.hide()
 
         # Copiar la BD a la carpeta del usuario (para que no sea de sólo lectura)
         rutaBD = os.getcwd() + "/modelos/datos.db"
@@ -52,13 +55,11 @@ class ManejarCiudades(QWidget, Ui_manejarCiudades):
         self.eliminarCiudad.setIcon(QIcon(os.getcwd() + "/recursos/iconos/ic_eliminar.png"))
         self.guardarCambios.setIcon(QIcon(os.getcwd() + "/recursos/iconos/ic_guardar.png"))
         self.seleccionarImagen.setIcon(QIcon(os.getcwd() + "/recursos/iconos/ic_imagen.png"))
-        self.recargar.setIcon(QIcon(os.getcwd() + "/recursos/iconos/refrescar.png"))
         self.setWindowIcon(QIcon(os.getcwd() + "/recursos/iconos/ic_Sitios.png"))
     
         # Configuraciones importantes
         self.frame_ciudad.hide()
         self.cargarCiudades()
-        self.recargar.hide()
 
         # Acciones
         self.agregarCiudad.clicked.connect(self.registrarCiudad)
@@ -66,39 +67,9 @@ class ManejarCiudades(QWidget, Ui_manejarCiudades):
         self.editarCiudad.clicked.connect(self.editar)
         self.eliminarCiudad.clicked.connect(self.eliminar)
 
-        self.recargar.clicked.connect(self.refrescar)
-        self.recargar.clicked.connect(self.recargar.hide)
-
         # Acciones (Editar ciudad)
         self.seleccionarImagen.clicked.connect(self.imagenCiudad)
         self.guardarCambios.clicked.connect(self.guardar)
-
-    def refrescar(self):
-        # Función que refresca los datos de ciudades
-        self.ciudadComboBox.clear()
-        if self.conexion:
-            ciudades = self.conexion.execute("SELECT Nombre FROM Ciudades ORDER BY Nombre")
-            for ciudad in ciudades.fetchall():
-                self.ciudadComboBox.addItem(ciudad[0])
-
-            if self.ciudadComboBox.count() <= 0:
-                QMessageBox.warning(None, "Aviso", "No hay datos de ciudades guardadas, añade una pulsando al botón correspondiente")
-                self.ciudadLabel.hide()
-                self.ciudadComboBox.hide()
-                self.recargar.hide()
-
-            elif self.ciudadComboBox.count() > 0 and not self.ciudadComboBox.currentIndex() == -1:
-                self.ciudadLabel.show()
-                self.ciudadComboBox.show()
-                self.recargar.show()
-            
-            self.img_ciudad.setPixmap(QPixmap())
-            self.ciudadComboBox.setCurrentIndex(-1)
-            self.nombreCiudad.setText("")
-            self.desc_ciudad.setPlainText("")
-        else:
-            QMessageBox.warning(None, "Aviso", "Error de conexión a la BD")
-            raise InitialisationError("Error de conexión a la BD.")
 
     def guardar(self):
         # Función que permite al usuario guardar los datos nuevos de una ciudad y eliminar los antiguos
@@ -115,7 +86,16 @@ class ManejarCiudades(QWidget, Ui_manejarCiudades):
                 self.conexion.commit()
 
                 QMessageBox.information(self, "Resultado", "Datos de la ciudad actualizados")
-                self.refrescar()
+                self.frame_ciudad.show()
+
+                ciudadEditada = self.nombreCiudad.text()
+                self.cargarCiudades()
+
+                indice = self.ciudadComboBox.findText(ciudadEditada)
+                self.cityEditada = True
+
+                self.ciudadComboBox.setCurrentIndex(indice)
+                self.cargarInfoCiudadSeleccionada()
 
                 # Poner la nueva versión de la BD
                 verBD = self.conexion.execute("SELECT MAX(Ver) FROM VersionTurismo").fetchone()
@@ -138,7 +118,6 @@ class ManejarCiudades(QWidget, Ui_manejarCiudades):
                 self.conexion.rollback()
 
                 QMessageBox.warning(self, "Resultado", "No se pudieron actualizar los datos de la ciudad")
-                self.recargar.hide()
         else:
             QMessageBox.warning(self, "Aviso", "Nombre de la ciudad vacío")
             self.nombreCiudad.setText(self.ciudadComboBox.currentText())
@@ -216,9 +195,9 @@ class ManejarCiudades(QWidget, Ui_manejarCiudades):
                     self.nombreCiudad.setText("")
                     self.desc_ciudad.setPlainText("")
                     self.img_ciudad.setPixmap(QPixmap())
-
-                    self.cargarCiudades()
+                    
                     QMessageBox.information(self, "Resultado", "Ciudad seleccionada eliminada correctamente")
+                    self.cargarCiudades()
                     
                     # Poner la nueva versión de la BD
                     verBD = self.conexion.execute("SELECT MAX(Ver) FROM VersionTurismo").fetchone()
@@ -250,6 +229,7 @@ class ManejarCiudades(QWidget, Ui_manejarCiudades):
         # Función que carga las ciudades guardadas en la BD
         if self.conexion:
             self.ciudadComboBox.clear()
+            self.aviso.hide()
 
             ciudades = self.conexion.execute("SELECT Nombre FROM Ciudades ORDER BY Nombre")
             for ciudad in ciudades.fetchall():
@@ -261,12 +241,18 @@ class ManejarCiudades(QWidget, Ui_manejarCiudades):
                 QMessageBox.warning(self, "Aviso", "No hay datos de ciudades guardadas, añade una pulsando al botón correspondiente")
                 self.ciudadLabel.hide()
                 self.ciudadComboBox.hide()
-                self.recargar.hide()
                 self.frame_ciudad.hide()
 
             elif self.ciudadComboBox.count() > 0:
                 self.ciudadLabel.show()
                 self.ciudadComboBox.show()
+
+                if self.cityEditada:
+                    self.frame_ciudad.show()
+                    self.cityEditada = False
+                else:
+                    self.aviso.setText("SELECCIONE UNA CIUDAD")
+                    self.aviso.show()
         else:
             QMessageBox.warning(self, "Aviso", "Error de conexión a la BD")
             raise InitialisationError("Error de conexión a la BD.")
@@ -277,19 +263,30 @@ class ManejarCiudades(QWidget, Ui_manejarCiudades):
 
         self.ventana = AgregarCiudades()
         self.ventana.closing.connect(self.cerrarVentana)
-        self.ventana.descartar.clicked.connect(self.recargar.hide)
+
         self.ventana.guardarCiudad.clicked.connect(self.cargarCiudades)
+        self.ventana.guardarCiudad.clicked.connect(self.ciudadLabel.show)
+        self.ventana.guardarCiudad.clicked.connect(self.ciudadComboBox.show)
+        self.ventana.guardarCiudad.clicked.connect(self.mostrarIndicativo)
+
         self.ventana.show()
 
-        self.recargar.show()
-        self.ciudadLabel.show()
-        self.ciudadComboBox.show()
+    def mostrarIndicativo(self):
+        # Función que muestra un mensaje indicando al usuario que hay nuevas ciudades disponibles
+        self.vecesRegistrar += 1
+
+        if self.vecesRegistrar == 1:
+            self.aviso.setText("¡NUEVA CIUDAD REGISTRADA!")
+        elif self.vecesRegistrar > 1:
+            self.aviso.setText("¡NUEVAS CIUDADES REGISTRADAS!")
+
+        self.aviso.show()
 
     def cargarInfoCiudadSeleccionada(self):
         # Función que carga la información completa de la ciudad seleccionada
         ciudad = self.conexion.execute("SELECT c.Imagen, c.Descripcion FROM Ciudades c WHERE c.Nombre = ?", (self.ciudadComboBox.currentText(),)).fetchone()
         if ciudad:
-            self.recargar.hide()
+            self.aviso.hide()
 
             imagen = ciudad[0]
             desc = ciudad[1]
@@ -315,6 +312,8 @@ class ManejarCiudades(QWidget, Ui_manejarCiudades):
         super().closeEvent(event)
 
     def cerrarVentana(self):
+        self.vecesRegistrar = 0
+
         self.ventana.close()
         self.show()
 

@@ -1,4 +1,4 @@
-import sys, os, pathlib, sqlite3, shutil
+import sys, os, sqlite3, shutil
 from pathlib import Path
 from PySide6.QtWidgets import QApplication, QWidget, QMessageBox, QFileDialog
 from PySide6.QtGui import QPixmap, QIcon
@@ -20,8 +20,11 @@ class ManejarSitios(QWidget, Ui_manejarSitios):
         self.imagen = None
         self.edicion = False
         self.edicion2 = False
+        self.sitioEditado = False
         self.IDSitio = 0
         self.IDCiudad = 0
+        self.vecesRegistrar = 0
+        self.imagenSel = 0
 
         # Configuraciones menores
         self.nombreSitio.setStyleSheet("color:white;background-color: rgb(30, 30, 30);border:none;")
@@ -31,6 +34,7 @@ class ManejarSitios(QWidget, Ui_manejarSitios):
         self.guardarCambios.hide()
         self.ciudadLabel_2.hide()
         self.ciudadComboBox_Editar.hide()
+        self.aviso_sitio.hide()
 
         # Añadir los iconos
         self.agregarSitio.setIcon(QIcon(os.getcwd() + "/recursos/iconos/ic_agregar.png"))
@@ -38,7 +42,6 @@ class ManejarSitios(QWidget, Ui_manejarSitios):
         self.eliminarSitio.setIcon(QIcon(os.getcwd() + "/recursos/iconos/ic_eliminar.png"))
         self.guardarCambios.setIcon(QIcon(os.getcwd() + "/recursos/iconos/ic_guardar.png"))
         self.seleccionarImagen.setIcon(QIcon(os.getcwd() + "/recursos/iconos/ic_imagen.png"))
-        self.recargar.setIcon(QIcon(os.getcwd() + "/recursos/iconos/refrescar.png"))
         self.setWindowIcon(QIcon(os.getcwd() + "/recursos/iconos/ic_Sitios.png"))
 
         # Copiar la BD a la carpeta del usuario (para que no sea de sólo lectura)
@@ -62,7 +65,6 @@ class ManejarSitios(QWidget, Ui_manejarSitios):
 
         # Configuraciones importantes
         self.frame_sitio.hide()
-        self.recargar.hide()
         self.ciudades = self.cargarCiudades()
 
         # Acciones
@@ -72,17 +74,15 @@ class ManejarSitios(QWidget, Ui_manejarSitios):
         self.editarSitio.clicked.connect(self.editar)
         self.eliminarSitio.clicked.connect(self.eliminar)
 
-        self.recargar.clicked.connect(self.refrescar)
-        self.recargar.clicked.connect(self.recargar.hide)
-
         # Acciones (Editar sitio)
         self.seleccionarImagen.clicked.connect(self.imagenSitio)
         self.guardarCambios.clicked.connect(self.guardar)
+        self.ciudadComboBox_Editar.currentTextChanged.connect(self.controlarImagen)
 
-    def refrescar(self):
-        # Función que refresca los datos de sitios de la ciudad seleccionada
-        self.sitioComboBox.clear()
-        self.cargarSitiosCiudad()
+    def controlarImagen(self):
+        # Función que controla la integridad del uso de imágenes entre sitios
+        if self.imagenSel == 0:
+            self.imagen = None
 
     def guardar(self):
         # Función para guardar los cambios en los datos de un sitio al editarlos
@@ -103,7 +103,19 @@ class ManejarSitios(QWidget, Ui_manejarSitios):
                 self.conexion.commit()
 
                 QMessageBox.information(self, "Resultado", "Datos del sitio actualizados")
-                self.refrescar()
+                self.frame_sitio.show()
+
+                if self.imagenSel == 0:
+                    self.imagen = None
+
+                self.imagenSel = 0
+
+                sitioEditado = self.nombreSitio.text()
+                self.cargarSitiosCiudad()
+
+                indice = self.sitioComboBox.findText(sitioEditado)
+                self.sitioComboBox.setCurrentIndex(indice)
+                self.ocultarMensaje()
 
                 # Poner la nueva versión de la BD
                 verBD = self.conexion.execute("SELECT MAX(Ver) FROM VersionTurismo").fetchone()
@@ -158,6 +170,8 @@ class ManejarSitios(QWidget, Ui_manejarSitios):
                     buffer.close()
                     self.imagen = bytes(byte_array)
 
+                    self.imagenSel += 1
+
     def editar(self):
         # Función que permite al usuario editar los datos del sitio de una ciudad
         if not self.edicion:
@@ -170,6 +184,9 @@ class ManejarSitios(QWidget, Ui_manejarSitios):
             self.desc_Sitio.setReadOnly(False)
             self.ciudadLabel_2.show()
             self.ciudadComboBox_Editar.show()
+
+            indice = self.ciudadComboBox_Editar.findText(self.ciudadComboBox.currentText())
+            self.ciudadComboBox_Editar.setCurrentIndex(indice)
 
             try:
                 idS = self.conexion.execute("SELECT s.ID FROM Sitios s WHERE s.Nombre = ?", (self.nombreSitio.text(),)).fetchone()
@@ -244,7 +261,6 @@ class ManejarSitios(QWidget, Ui_manejarSitios):
                 self.ciudadComboBox_Editar.addItem(ciudad[0])
 
             if self.ciudadComboBox.count() <= 0:
-                self.recargar.hide()
                 self.frame_sitio.hide()
 
                 QMessageBox.warning(self, "Aviso", "No hay datos de ciudades guardadas")
@@ -255,6 +271,7 @@ class ManejarSitios(QWidget, Ui_manejarSitios):
                self.sitioComboBox.setCurrentIndex(-1)
                self.ciudadComboBox_Editar.setCurrentIndex(-1)
 
+               self.aviso_ciudadNoSeleccionada.show()
                return self.ciudadComboBox.count()
         else:
             QMessageBox.warning(self, "Aviso", "Error de conexión a la BD")
@@ -264,8 +281,11 @@ class ManejarSitios(QWidget, Ui_manejarSitios):
         # Función que carga los sitios de la ciudad elegida
         if self.ciudades > 0:
             self.sitioComboBox.clear()
-            self.recargar.hide()
+            self.img_Sitio.setPixmap(QPixmap())
+            self.desc_Sitio.setPlainText("")
             self.frame_sitio.hide()
+            self.aviso_ciudadNoSeleccionada.hide()
+            self.aviso_sitio.show()
 
             cID = self.conexion.execute("SELECT c.ID FROM Ciudades c WHERE c.Nombre = ?", (self.ciudadComboBox.currentText(),))
             ciudadID = cID.fetchone()
@@ -280,8 +300,10 @@ class ManejarSitios(QWidget, Ui_manejarSitios):
                     self.frame_sitio.hide()
 
                 if self.sitioComboBox.count() <= 0:
-                    self.aviso_ciudadNoSeleccionada.setText(self.ciudadComboBox.currentText() + " NO TIENE SITIOS ASOCIADOS")
-                    self.aviso_ciudadNoSeleccionada.show()
+                    self.aviso_ciudadNoSeleccionada.hide()
+
+                    self.aviso_sitio.setText(self.ciudadComboBox.currentText() + " NO TIENE SITIOS ASOCIADOS")
+                    self.aviso_sitio.show()
                     self.frame_sitio.hide()
                 else:
                     self.aviso_ciudadNoSeleccionada.hide()
@@ -289,14 +311,21 @@ class ManejarSitios(QWidget, Ui_manejarSitios):
                         self.frame_sitio.show()
                         self.edicion2 = False
 
+                    if self.sitioComboBox.currentIndex() == -1:
+                        self.aviso_sitio.setText("SELECCIONE UN SITIO")
+                        self.aviso_sitio.show()
             else:
-                self.aviso_ciudadNoSeleccionada.setText(self.ciudadComboBox.currentText() + " NO TIENE SITIOS ASOCIADOS")
-                self.aviso_ciudadNoSeleccionada.show()
+                self.aviso_sitio.setText(self.ciudadComboBox.currentText() + " NO TIENE SITIOS ASOCIADOS")
+                self.aviso_sitio.show()
 
     def ocultarMensaje(self):
         # Función que oculta el mensaje de ciudad no seleccionada cuando el usuario selecciona un sitio
         self.aviso_ciudadNoSeleccionada.hide()
+        self.img_Sitio.setPixmap(QPixmap())
+        self.desc_Sitio.setPlainText("")
+
         if self.sitioComboBox.currentIndex() != -1:
+            self.aviso_sitio.hide()
             self.nombreSitio.setText(self.sitioComboBox.currentText())
 
             sitio = self.conexion.execute("SELECT s.Descripcion, s.Imagen FROM Sitios s WHERE s.Nombre = ?", (self.sitioComboBox.currentText(),)).fetchone()
@@ -326,12 +355,21 @@ class ManejarSitios(QWidget, Ui_manejarSitios):
 
             self.ventana = AgregarSitios(ID)
             self.ventana.closing.connect(self.cerrarVentana)
-            self.ventana.descartar.clicked.connect(self.recargar.hide)
             self.ventana.guardarSitio.clicked.connect(self.cargarSitiosCiudad)
+            self.ventana.guardarSitio.clicked.connect(self.mostrarIndicativo)
             self.ventana.show()
 
         elif self.ciudadComboBox.currentIndex() == -1:
             QMessageBox.warning(self, "Aviso", "No se ha seleccionado ninguna ciudad")
+
+    def mostrarIndicativo(self):
+        # Función que muestra un mensaje indicando al usuario que hay nuevos sitios disponibles
+        self.vecesRegistrar +=1
+        
+        if self.vecesRegistrar == 1:
+            self.aviso_sitio.setText("¡NUEVO SITIO REGISTRADO!" + ((" (en " + self.ventana.ciudadComboBox.currentText() + ")") if self.ciudadComboBox.currentText() != self.ventana.ciudadComboBox.currentText() else ""))
+        elif self.vecesRegistrar > 1:
+            self.aviso_sitio.setText("¡NUEVOS SITIOS REGISTRADOS!" + ((" (en diferentes ciudades)") if self.ciudadComboBox.currentText() != self.ventana.ciudadComboBox.currentText() else ""))
 
     def closeEvent(self, event):
         # Función que el usuario al cerrar la ventana se le vuelve a la ventana de inicio
@@ -339,13 +377,14 @@ class ManejarSitios(QWidget, Ui_manejarSitios):
         super().closeEvent(event)
 
     def cerrarVentana(self):
+        self.vecesRegistrar = 0
+        self.imagenSel = 0
+
         self.ventana.close()
         self.show()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    
     manejarSitios = ManejarSitios()
     manejarSitios.show()
-    
     sys.exit(app.exec())
