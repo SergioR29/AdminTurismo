@@ -202,7 +202,7 @@ background-color: rgb(0, 170, 255);</string>
      <normaloff>../recursos/iconos/ic_guardar.png</normaloff>../recursos/iconos/ic_guardar.png</iconset>
    </property>
   </widget>
-  <widget class="QPushButton" name="descartar">
+  <widget class="QPushButton" name="cerrar">
    <property name="geometry">
     <rect>
      <x>300</x>
@@ -221,11 +221,17 @@ background-color: rgb(0, 170, 255);</string>
 background-color: rgb(0, 170, 255);</string>
    </property>
    <property name="text">
-    <string> Descartar</string>
+    <string> Cerrar</string>
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>../recursos/iconos/ic_descartar.png</normaloff>../recursos/iconos/ic_descartar.png</iconset>
+     <normaloff>../recursos/iconos/cerrar.png</normaloff>../recursos/iconos/cerrar.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>20</width>
+     <height>20</height>
+    </size>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">
@@ -257,7 +263,7 @@ background-color: rgb(0, 170, 255);</string>
  <resources/>
  <connections>
   <connection>
-   <sender>descartar</sender>
+   <sender>cerrar</sender>
    <signal>clicked()</signal>
    <receiver>agregarCiudades</receiver>
    <slot>close()</slot>

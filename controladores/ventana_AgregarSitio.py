@@ -39,7 +39,7 @@ class AgregarSitios(QWidget, Ui_agregarSitios):
 
         # Añadir los iconos
         self.seleccionarImagen.setIcon(QIcon(os.getcwd() + "/recursos/iconos/ic_imagen.png"))
-        self.descartar.setIcon(QIcon(os.getcwd() + "/recursos/iconos/ic_descartar.png"))
+        self.cerrar.setIcon(QIcon(os.getcwd() + "/recursos/iconos/cerrar.png"))
         self.guardarSitio.setIcon(QIcon(os.getcwd() + "/recursos/iconos/ic_guardar.png"))
 
         # Configuraciones importantes
@@ -47,7 +47,7 @@ class AgregarSitios(QWidget, Ui_agregarSitios):
 
         # Acciones
         self.seleccionarImagen.clicked.connect(self.imagenSitio)
-        self.descartar.clicked.connect(self.retroceder)
+        self.cerrar.clicked.connect(self.retroceder)
         self.guardarSitio.clicked.connect(self.guardarCambios)
 
     def guardarCambios(self):

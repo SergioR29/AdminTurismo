@@ -37,12 +37,12 @@ class AgregarCiudades(QWidget, Ui_agregarCiudades):
 
         # Añadir los iconos
         self.seleccionarImagen.setIcon(QIcon(os.getcwd() + "/recursos/iconos/ic_imagen.png"))
-        self.descartar.setIcon(QIcon(os.getcwd() + "/recursos/iconos/ic_descartar.png"))
+        self.cerrar.setIcon(QIcon(os.getcwd() + "/recursos/iconos/cerrar.png"))
         self.guardarCiudad.setIcon(QIcon(os.getcwd() + "/recursos/iconos/ic_guardar.png"))
 
         # Acciones
         self.seleccionarImagen.clicked.connect(self.imagenCiudad)
-        self.descartar.clicked.connect(self.retroceder)
+        self.cerrar.clicked.connect(self.retroceder)
         self.guardarCiudad.clicked.connect(self.guardarCambios)
 
     def guardarCambios(self):

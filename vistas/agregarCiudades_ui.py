@@ -106,15 +106,16 @@ class Ui_agregarCiudades(object):
         icon1 = QIcon()
         icon1.addFile(u"../recursos/iconos/ic_guardar.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.guardarCiudad.setIcon(icon1)
-        self.descartar = QPushButton(agregarCiudades)
-        self.descartar.setObjectName(u"descartar")
-        self.descartar.setGeometry(QRect(300, 600, 91, 31))
-        self.descartar.setFont(font1)
-        self.descartar.setStyleSheet(u"color: rgb(0, 0, 0);\n"
+        self.cerrar = QPushButton(agregarCiudades)
+        self.cerrar.setObjectName(u"cerrar")
+        self.cerrar.setGeometry(QRect(300, 600, 91, 31))
+        self.cerrar.setFont(font1)
+        self.cerrar.setStyleSheet(u"color: rgb(0, 0, 0);\n"
 "background-color: rgb(0, 170, 255);")
         icon2 = QIcon()
-        icon2.addFile(u"../recursos/iconos/ic_descartar.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.descartar.setIcon(icon2)
+        icon2.addFile(u"../recursos/iconos/cerrar.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.cerrar.setIcon(icon2)
+        self.cerrar.setIconSize(QSize(20, 20))
         self.label_2 = QLabel(agregarCiudades)
         self.label_2.setObjectName(u"label_2")
         self.label_2.setGeometry(QRect(80, 410, 681, 31))
@@ -126,7 +127,7 @@ class Ui_agregarCiudades(object):
         self.label_2.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.retranslateUi(agregarCiudades)
-        self.descartar.clicked.connect(agregarCiudades.close)
+        self.cerrar.clicked.connect(agregarCiudades.close)
 
         QMetaObject.connectSlotsByName(agregarCiudades)
     # setupUi
@@ -138,7 +139,7 @@ class Ui_agregarCiudades(object):
         self.img_ciudad.setText("")
         self.nombreLabel.setText(QCoreApplication.translate("agregarCiudades", u"Nombre", None))
         self.guardarCiudad.setText(QCoreApplication.translate("agregarCiudades", u"  Guardar", None))
-        self.descartar.setText(QCoreApplication.translate("agregarCiudades", u" Descartar", None))
+        self.cerrar.setText(QCoreApplication.translate("agregarCiudades", u" Cerrar", None))
         self.label_2.setText(QCoreApplication.translate("agregarCiudades", u"DESCRIPCI\u00d3N", None))
     # retranslateUi
 

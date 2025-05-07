@@ -70,15 +70,16 @@ class Ui_agregarSitios(object):
         icon1 = QIcon()
         icon1.addFile(u"../recursos/iconos/ic_guardar.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.guardarSitio.setIcon(icon1)
-        self.descartar = QPushButton(agregarSitios)
-        self.descartar.setObjectName(u"descartar")
-        self.descartar.setGeometry(QRect(310, 640, 91, 31))
-        self.descartar.setFont(font1)
-        self.descartar.setStyleSheet(u"color: rgb(0, 0, 0);\n"
+        self.cerrar = QPushButton(agregarSitios)
+        self.cerrar.setObjectName(u"cerrar")
+        self.cerrar.setGeometry(QRect(310, 640, 91, 31))
+        self.cerrar.setFont(font1)
+        self.cerrar.setStyleSheet(u"color: rgb(0, 0, 0);\n"
 "background-color: rgb(0, 170, 255);")
         icon2 = QIcon()
-        icon2.addFile(u"../recursos/iconos/ic_descartar.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.descartar.setIcon(icon2)
+        icon2.addFile(u"../recursos/iconos/cerrar.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.cerrar.setIcon(icon2)
+        self.cerrar.setIconSize(QSize(22, 22))
         self.label_2 = QLabel(agregarSitios)
         self.label_2.setObjectName(u"label_2")
         self.label_2.setGeometry(QRect(90, 450, 681, 31))
@@ -145,7 +146,7 @@ class Ui_agregarSitios(object):
 
 
         self.retranslateUi(agregarSitios)
-        self.descartar.clicked.connect(agregarSitios.close)
+        self.cerrar.clicked.connect(agregarSitios.close)
 
         QMetaObject.connectSlotsByName(agregarSitios)
     # setupUi
@@ -156,7 +157,7 @@ class Ui_agregarSitios(object):
         self.seleccionarImagen.setText(QCoreApplication.translate("agregarSitios", u" Seleccionar imagen...", None))
         self.img_sitio.setText("")
         self.guardarSitio.setText(QCoreApplication.translate("agregarSitios", u"  Guardar", None))
-        self.descartar.setText(QCoreApplication.translate("agregarSitios", u" Descartar", None))
+        self.cerrar.setText(QCoreApplication.translate("agregarSitios", u" Cerrar", None))
         self.label_2.setText(QCoreApplication.translate("agregarSitios", u"DESCRIPCI\u00d3N", None))
         self.nombreLabel.setText(QCoreApplication.translate("agregarSitios", u"Nombre", None))
         self.ciudadLabel.setText(QCoreApplication.translate("agregarSitios", u"Ciudad", None))
