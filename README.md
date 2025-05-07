@@ -1,2 +1,2 @@
 # V_Admin
-Interfaz de Administración (TFG)
+Interfaz de Administración Turística (TFG)
