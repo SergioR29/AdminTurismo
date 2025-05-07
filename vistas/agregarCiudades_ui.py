@@ -90,9 +90,7 @@ class Ui_agregarCiudades(object):
         self.desc_ciudad = QPlainTextEdit(agregarCiudades)
         self.desc_ciudad.setObjectName(u"desc_ciudad")
         self.desc_ciudad.setGeometry(QRect(80, 450, 681, 121))
-        font3 = QFont()
-        font3.setPointSize(9)
-        self.desc_ciudad.setFont(font3)
+        self.desc_ciudad.setFont(font2)
         self.desc_ciudad.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "background-color: rgb(53, 53, 53);\n"
 "border:2px solid rgb(0, 85, 255);\n"
@@ -119,10 +117,10 @@ class Ui_agregarCiudades(object):
         self.label_2 = QLabel(agregarCiudades)
         self.label_2.setObjectName(u"label_2")
         self.label_2.setGeometry(QRect(80, 410, 681, 31))
-        font4 = QFont()
-        font4.setPointSize(15)
-        font4.setBold(True)
-        self.label_2.setFont(font4)
+        font3 = QFont()
+        font3.setPointSize(15)
+        font3.setBold(True)
+        self.label_2.setFont(font3)
         self.label_2.setStyleSheet(u"color: white;")
         self.label_2.setAlignment(Qt.AlignmentFlag.AlignCenter)
 

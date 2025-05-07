@@ -57,6 +57,9 @@ class Ui_agregarSitios(object):
         self.desc_sitio = QPlainTextEdit(agregarSitios)
         self.desc_sitio.setObjectName(u"desc_sitio")
         self.desc_sitio.setGeometry(QRect(90, 490, 681, 121))
+        font2 = QFont()
+        font2.setPointSize(10)
+        self.desc_sitio.setFont(font2)
         self.desc_sitio.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "background-color: rgb(53, 53, 53);\n"
 "border:2px solid rgb(0, 85, 255);\n"
@@ -83,10 +86,10 @@ class Ui_agregarSitios(object):
         self.label_2 = QLabel(agregarSitios)
         self.label_2.setObjectName(u"label_2")
         self.label_2.setGeometry(QRect(90, 450, 681, 31))
-        font2 = QFont()
-        font2.setPointSize(15)
-        font2.setBold(True)
-        self.label_2.setFont(font2)
+        font3 = QFont()
+        font3.setPointSize(15)
+        font3.setBold(True)
+        self.label_2.setFont(font3)
         self.label_2.setStyleSheet(u"color: white;")
         self.label_2.setAlignment(Qt.AlignmentFlag.AlignCenter)
         self.formLayoutWidget = QWidget(agregarSitios)
@@ -108,9 +111,7 @@ class Ui_agregarSitios(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.nombreLineEdit.sizePolicy().hasHeightForWidth())
         self.nombreLineEdit.setSizePolicy(sizePolicy)
-        font3 = QFont()
-        font3.setPointSize(10)
-        self.nombreLineEdit.setFont(font3)
+        self.nombreLineEdit.setFont(font2)
         self.nombreLineEdit.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "border-bottom: 2px solid rgb(0, 170, 255);\n"
 "border-left:none;\n"
@@ -132,7 +133,7 @@ class Ui_agregarSitios(object):
         self.ciudadComboBox.setObjectName(u"ciudadComboBox")
         sizePolicy.setHeightForWidth(self.ciudadComboBox.sizePolicy().hasHeightForWidth())
         self.ciudadComboBox.setSizePolicy(sizePolicy)
-        self.ciudadComboBox.setFont(font3)
+        self.ciudadComboBox.setFont(font2)
         self.ciudadComboBox.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "border-bottom: 2px solid rgb(0, 170, 255);\n"
 "border-left:none;\n"
