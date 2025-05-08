@@ -86,7 +86,7 @@ class Ui_agregarCiudades(object):
 "border-top:none;\n"
 "padding-left:5px;\n"
 "padding-right:5px;")
-        self.nombreLineEdit.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.nombreLineEdit.setAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignVCenter)
 
         self.formLayout.setWidget(0, QFormLayout.ItemRole.FieldRole, self.nombreLineEdit)
 
