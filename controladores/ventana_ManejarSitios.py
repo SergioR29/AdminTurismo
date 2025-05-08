@@ -18,6 +18,7 @@ class ManejarSitios(QWidget, Ui_manejarSitios):
         self.ventana = 0
         self.eliminarSt = False
         self.imagen = None
+        self.imagenS = None
         self.edicion = False
         self.edicion2 = False
         self.sitioEditado = False
@@ -99,7 +100,7 @@ class ManejarSitios(QWidget, Ui_manejarSitios):
             idC = self.conexion.execute("SELECT c.ID FROM Ciudades c WHERE c.Nombre = ?", (self.ciudadComboBox_Editar.currentText(),)).fetchone()
             idCiudad = int(idC[0])
             try:
-                self.conexion.execute("UPDATE Sitios SET Nombre = ?, Descripcion = ?, Imagen = ?, Ciudad = ? WHERE ID = ?", (self.nombreSitio.text(), self.desc_Sitio.toPlainText(), self.imagen, idCiudad, self.IDSitio))
+                self.conexion.execute("UPDATE Sitios SET Nombre = ?, Descripcion = ?, Imagen = ?, Ciudad = ? WHERE ID = ?", (self.nombreSitio.text(), self.desc_Sitio.toPlainText(), self.imagen if self.imagenSel > 0 else self.imagenS, idCiudad, self.IDSitio))
                 self.conexion.commit()
 
                 QMessageBox.information(self, "Resultado", "Datos del sitio actualizados")
@@ -332,6 +333,7 @@ class ManejarSitios(QWidget, Ui_manejarSitios):
             if sitio:
                 desc = sitio[0]
                 imagen = sitio[1]
+                self.imagenS = imagen
 
                 # Sacar imagen de la BD
                 pixmap = QPixmap()
