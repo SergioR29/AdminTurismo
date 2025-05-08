@@ -23,7 +23,7 @@ CREATE TABLE "Sitios" (
 );
 CREATE TABLE "Tareas" (
 	"ID"	INTEGER NOT NULL,
-	"Titulo"	TEXT NOT NULL,
+	"Titulo"	TEXT NOT NULL UNIQUE,
 	"Icono"	BLOB,
 	"Descripcion"	TEXT,
 	"Fecha_Inicio"	TEXT,

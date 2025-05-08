@@ -36,6 +36,7 @@ class AgregarCiudades(QWidget, Ui_agregarCiudades):
             print(e.sqlite_errorname)
 
         # Añadir los iconos
+        self.setWindowIcon(QIcon(os.getcwd() + "/recursos/img/ciudades.png"))
         self.seleccionarImagen.setIcon(QIcon(os.getcwd() + "/recursos/iconos/ic_imagen.png"))
         self.cerrar.setIcon(QIcon(os.getcwd() + "/recursos/iconos/cerrar.png"))
         self.guardarCiudad.setIcon(QIcon(os.getcwd() + "/recursos/iconos/ic_guardar.png"))

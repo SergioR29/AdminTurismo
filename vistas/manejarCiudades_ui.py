@@ -26,6 +26,9 @@ class Ui_manejarCiudades(object):
         manejarCiudades.setWindowModality(Qt.WindowModality.WindowModal)
         manejarCiudades.resize(849, 718)
         manejarCiudades.setMaximumSize(QSize(849, 718))
+        icon = QIcon()
+        icon.addFile(u"../recursos/img/ciudades.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        manejarCiudades.setWindowIcon(icon)
         manejarCiudades.setStyleSheet(u"background-color: rgb(0, 0, 0);\n"
 "color: rgb(255, 255, 255);")
         self.frame = QFrame(manejarCiudades)
@@ -91,9 +94,9 @@ class Ui_manejarCiudades(object):
         self.agregarCiudad.setStyleSheet(u"background-color: rgb(170, 0, 255);\n"
 "color: rgb(0, 0, 0);\n"
 "border-radius:5px;")
-        icon = QIcon()
-        icon.addFile(u"../recursos/iconos/ic_agregar.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.agregarCiudad.setIcon(icon)
+        icon1 = QIcon()
+        icon1.addFile(u"../recursos/iconos/ic_agregar.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.agregarCiudad.setIcon(icon1)
         self.frame_ciudad = QFrame(self.frame)
         self.frame_ciudad.setObjectName(u"frame_ciudad")
         self.frame_ciudad.setGeometry(QRect(40, 160, 791, 531))
@@ -112,9 +115,9 @@ class Ui_manejarCiudades(object):
         self.editarCiudad.setStyleSheet(u"color: rgb(0, 0, 0);\n"
 "background-color: rgb(0, 170, 255);\n"
 "border-radius:5px;")
-        icon1 = QIcon()
-        icon1.addFile(u"../recursos/iconos/ic_editar.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.editarCiudad.setIcon(icon1)
+        icon2 = QIcon()
+        icon2.addFile(u"../recursos/iconos/ic_editar.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.editarCiudad.setIcon(icon2)
         self.eliminarCiudad = QPushButton(self.frame_ciudad)
         self.eliminarCiudad.setObjectName(u"eliminarCiudad")
         self.eliminarCiudad.setGeometry(QRect(690, 20, 97, 31))
@@ -122,9 +125,9 @@ class Ui_manejarCiudades(object):
         self.eliminarCiudad.setStyleSheet(u"color: rgb(0, 0, 0);\n"
 "background-color: rgb(0, 170, 255);\n"
 "border-radius:5px;")
-        icon2 = QIcon()
-        icon2.addFile(u"../recursos/iconos/ic_eliminar.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.eliminarCiudad.setIcon(icon2)
+        icon3 = QIcon()
+        icon3.addFile(u"../recursos/iconos/ic_eliminar.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.eliminarCiudad.setIcon(icon3)
         self.img_ciudad = QLabel(self.frame_ciudad)
         self.img_ciudad.setObjectName(u"img_ciudad")
         self.img_ciudad.setGeometry(QRect(10, 20, 241, 181))
@@ -172,9 +175,9 @@ class Ui_manejarCiudades(object):
         self.guardarCambios.setStyleSheet(u"color: rgb(0, 0, 0);\n"
 "background-color: rgb(0, 170, 255);\n"
 "border-radius:5px;")
-        icon3 = QIcon()
-        icon3.addFile(u"../recursos/iconos/ic_guardar.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.guardarCambios.setIcon(icon3)
+        icon4 = QIcon()
+        icon4.addFile(u"../recursos/iconos/ic_guardar.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.guardarCambios.setIcon(icon4)
         self.seleccionarImagen = QPushButton(self.frame_ciudad)
         self.seleccionarImagen.setObjectName(u"seleccionarImagen")
         self.seleccionarImagen.setGeometry(QRect(270, 90, 171, 41))
@@ -182,10 +185,10 @@ class Ui_manejarCiudades(object):
         self.seleccionarImagen.setStyleSheet(u"color: rgb(0, 0, 0);\n"
 "background-color: rgb(0, 170, 255);\n"
 "border-radius:5px;")
-        icon4 = QIcon()
-        icon4.addFile(u"../recursos/iconos/ic_imagen.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.seleccionarImagen.setIcon(icon4)
-        self.seleccionarImagen.setIconSize(QSize(28, 26))
+        icon5 = QIcon()
+        icon5.addFile(u"../recursos/iconos/ic_imagen.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        self.seleccionarImagen.setIcon(icon5)
+        self.seleccionarImagen.setIconSize(QSize(28, 28))
         self.aviso = QLabel(self.frame)
         self.aviso.setObjectName(u"aviso")
         self.aviso.setGeometry(QRect(320, 120, 211, 21))

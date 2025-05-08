@@ -27,7 +27,7 @@ class Ui_manejarSitios(object):
         manejarSitios.resize(849, 718)
         manejarSitios.setMaximumSize(QSize(849, 718))
         icon = QIcon()
-        icon.addFile(u"../../V_Escritorio/recursos/iconos/ic_Sitios.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon.addFile(u"../recursos/img/sitios.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         manejarSitios.setWindowIcon(icon)
         manejarSitios.setStyleSheet(u"background-color: rgb(0, 0, 0);\n"
 "color: rgb(255, 255, 255);")
@@ -204,7 +204,7 @@ class Ui_manejarSitios(object):
         icon5 = QIcon()
         icon5.addFile(u"../recursos/iconos/ic_imagen.png", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         self.seleccionarImagen.setIcon(icon5)
-        self.seleccionarImagen.setIconSize(QSize(24, 24))
+        self.seleccionarImagen.setIconSize(QSize(28, 28))
         self.formLayoutWidget_2 = QWidget(self.frame_sitio)
         self.formLayoutWidget_2.setObjectName(u"formLayoutWidget_2")
         self.formLayoutWidget_2.setGeometry(QRect(270, 140, 221, 56))

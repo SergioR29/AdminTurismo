@@ -42,7 +42,7 @@ class ManejarSitios(QWidget, Ui_manejarSitios):
         self.eliminarSitio.setIcon(QIcon(os.getcwd() + "/recursos/iconos/ic_eliminar.png"))
         self.guardarCambios.setIcon(QIcon(os.getcwd() + "/recursos/iconos/ic_guardar.png"))
         self.seleccionarImagen.setIcon(QIcon(os.getcwd() + "/recursos/iconos/ic_imagen.png"))
-        self.setWindowIcon(QIcon(os.getcwd() + "/recursos/iconos/ic_Sitios.png"))
+        self.setWindowIcon(QIcon(os.getcwd() + "/recursos/img/sitios.png"))
 
         # Copiar la BD a la carpeta del usuario (para que no sea de sólo lectura)
         rutaBD = os.getcwd() + "/modelos/datos.db"

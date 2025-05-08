@@ -1,6 +1,6 @@
 import sys, os
 from PySide6.QtWidgets import QApplication, QMainWindow
-from PySide6.QtGui import QPixmap
+from PySide6.QtGui import QPixmap, QIcon
 from vistas.main_ui import Ui_Inicio
 from modelos.InitialisationError import InitialisationError
 
@@ -16,6 +16,7 @@ class Main(QMainWindow, Ui_Inicio):
         self.ventana = 0
 
         # Establecer las imágenes
+        self.setWindowIcon(QIcon(os.getcwd() + "/recursos/iconos/icono_admin.png"))
         self.img_sitios.setPixmap(QPixmap(os.getcwd() + "/recursos/img/sitios.png"))
         self.img_ciudades.setPixmap(QPixmap(os.getcwd() + "/recursos/img/ciudades.png"))
 

@@ -55,7 +55,7 @@ class ManejarCiudades(QWidget, Ui_manejarCiudades):
         self.eliminarCiudad.setIcon(QIcon(os.getcwd() + "/recursos/iconos/ic_eliminar.png"))
         self.guardarCambios.setIcon(QIcon(os.getcwd() + "/recursos/iconos/ic_guardar.png"))
         self.seleccionarImagen.setIcon(QIcon(os.getcwd() + "/recursos/iconos/ic_imagen.png"))
-        self.setWindowIcon(QIcon(os.getcwd() + "/recursos/iconos/ic_Sitios.png"))
+        self.setWindowIcon(QIcon(os.getcwd() + "/recursos/img/ciudades.png"))
     
         # Configuraciones importantes
         self.frame_ciudad.hide()
