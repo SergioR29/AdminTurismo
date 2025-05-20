@@ -1,0 +1,1 @@
+pyinstaller --onefile --windowed -name main.py --name turismoAdmin --add-data=modelos/datos.db:modelos --add-data=recursos/iconos/*.ico:recursos/iconos --add-data=recursos/img/*.png:recursos/img --add-data=vistas/*.py:vistas --add-data=controladores/*.py:controladores --icon recursos/iconos/icono_admin.ico
