@@ -163,7 +163,7 @@ class ManejarSitios(QWidget, Ui_manejarSitios):
             buffer = QBuffer()
             abrir = buffer.open(QIODevice.WriteOnly)
             if abrir:
-                guardado = pixmap.save(buffer, "JPG")
+                guardado = pixmap.save(buffer, "PNG")
                 if not guardado:
                     buffer.close()
                 else:
@@ -337,7 +337,7 @@ class ManejarSitios(QWidget, Ui_manejarSitios):
 
                 # Sacar imagen de la BD
                 pixmap = QPixmap()
-                pixmap.loadFromData(imagen, "JPG")
+                pixmap.loadFromData(imagen, "PNG")
 
                 if not pixmap.isNull():
                     self.img_Sitio.setPixmap(pixmap)

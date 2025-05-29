@@ -138,7 +138,7 @@ class ManejarCiudades(QWidget, Ui_manejarCiudades):
             buffer = QBuffer()
             abrir = buffer.open(QIODevice.WriteOnly)
             if abrir:
-                guardado = pixmap.save(buffer, "JPG")
+                guardado = pixmap.save(buffer, "PNG")
                 if not guardado:
                     buffer.close()
                 else:
@@ -293,7 +293,7 @@ class ManejarCiudades(QWidget, Ui_manejarCiudades):
 
             # Sacar imagen de la BD
             pixmap = QPixmap()
-            pixmap.loadFromData(imagen, "JPG")
+            pixmap.loadFromData(imagen, "PNG")
 
             if not pixmap.isNull():
                 self.img_ciudad.setPixmap(pixmap)

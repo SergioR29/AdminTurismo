@@ -120,7 +120,7 @@ class AgregarSitios(QWidget, Ui_agregarSitios):
             buffer = QBuffer()
             abrir = buffer.open(QIODevice.WriteOnly)
             if abrir:
-                guardado = pixmap.save(buffer, "JPG")
+                guardado = pixmap.save(buffer, "PNG")
                 if not guardado:
                     buffer.close()
                 else:
