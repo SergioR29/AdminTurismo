@@ -110,7 +110,7 @@ class AgregarCiudades(QWidget, Ui_agregarCiudades):
             buffer = QBuffer()
             abrir = buffer.open(QIODevice.WriteOnly)
             if abrir:
-                guardado = pixmap.save(buffer, "PNG")
+                guardado = pixmap.save(buffer, "JPG")
                 if not guardado:
                     buffer.close()
                 else:
