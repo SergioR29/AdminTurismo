@@ -3,8 +3,8 @@ Interfaz de Administración Turística para aplicaciones turísticas (ciudades y
 
 Únicamente compatible con Windows.
 
-Tecnologías utilizadas
--
+## Tecnologías utilizadas
+
 Lenguaje de Programación: **_Python_**.  
 Frameworks: **_PySide6 (GUI de Escritorio)_**.  
 Base de Datos: **_SQLite_**.  
