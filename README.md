@@ -8,6 +8,7 @@ Tecnologías utilizadas
 Lenguaje de Programación: **_Python_**.  
 Frameworks: **_PySide6 (GUI de Escritorio)_**.  
 Base de Datos: **_SQLite_**.  
+Empaquetado y Distribución: **_PyInstaller_** (Empaquetado) y **_InstallForge_** (Distribución).
 
 Ventana Principal
 -
