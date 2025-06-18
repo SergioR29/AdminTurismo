@@ -5,9 +5,9 @@ Interfaz de Administración Turística para aplicaciones turísticas (ciudades y
 
 Tecnologías utilizadas
 -
-Lenguaje de Programación: **_Python_**.
-Frameworks: **_PySide6 (GUI de Escritorio)_**.
-Base de Datos: **_SQLite_**.
+Lenguaje de Programación: **_Python_**.  
+Frameworks: **_PySide6 (GUI de Escritorio)_**.  
+Base de Datos: **_SQLite_**.  
 
 Ventana Principal
 -
