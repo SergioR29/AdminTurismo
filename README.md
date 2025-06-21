@@ -6,6 +6,7 @@ Interfaz de Administración Turística para aplicaciones turísticas (ciudades y
 ## Tecnologías utilizadas
 
 Lenguaje de Programación: **_Python_**.  
+Entorno de Desarrollo: **_Visual Studio Code_**  
 Frameworks: **_PySide6 (GUI de Escritorio)_**.  
 Base de Datos: **_SQLite_**.  
 Empaquetado y Distribución: **_PyInstaller_** (Empaquetado) y **_InstallForge_** (Distribución).
