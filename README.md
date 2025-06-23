@@ -1,9 +1,9 @@
 # Software de Administración de sitios y ciudades (AdminTurismo)
 Esta interfaz de administración turística fue diseñada para gestionar y centralizar la información de **ciudades y sus sitios de interés asociados.**  
 
-**_Funcionalidad clave:_** Su propósito principal fue el de introducir y mantener la información turística en las bases de datos, las cuales servían como fuente de datos para las aplicaciones del proyecto **TURISMO & PLANNING** (tanto la versión de Windows como la de Android).  
+**Funcionalidad clave:** Su propósito principal fue el de introducir y mantener la información turística en las bases de datos, las cuales servían como fuente de datos para las aplicaciones del proyecto **TURISMO & PLANNING** (tanto la versión de Windows como la de Android).  
 
-**_Compatibilidad:_** Desarrollado para operar únicamente en entornos **Windows.**
+**Compatibilidad:** Desarrollado para operar únicamente en entornos **Windows.**
 
 ## Tecnologías utilizadas
 
