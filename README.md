@@ -3,7 +3,7 @@ Esta interfaz de administración turística fue diseñada para gestionar y centr
 
 **Funcionalidad clave:** Su propósito principal fue el de introducir y mantener la información turística en las bases de datos, las cuales servían como fuente de datos para las aplicaciones del proyecto **TURISMO & PLANNING** (tanto la versión de Windows como la de Android).  
 
-**Compatibilidad:** Desarrollado para operar únicamente en entornos **Windows.**
+**Compatibilidad:** Desarrollado para operar únicamente en entornos **Windows**.  
 Metodología de Desarrollo: **_RUP_**. 
 
 ## Tecnologías utilizadas
