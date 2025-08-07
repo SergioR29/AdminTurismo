@@ -12,7 +12,7 @@ Lenguaje de Programación: **_Python_**.
 Entorno de Desarrollo: **_Visual Studio Code_**  
 Patrón de Diseño y Arquitectura: **_MVC_**.  
 
-Frameworks: **_PySide6 (GUI de Escritorio)_**.  
+Frameworks: **_PySide6 (UI/UX de Escritorio)_**.  
 Base de Datos: **_SQLite_**.  
 Empaquetado y Distribución: **_PyInstaller_** (Empaquetado) y **_InstallForge_** (Distribución).
 
