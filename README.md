@@ -5,6 +5,7 @@ Esta interfaz de administración turística fue diseñada para gestionar y centr
 
 - **Compatibilidad:** Desarrollado para operar únicamente en entornos **Windows**.  
 
+
 Se ha utilizado la metodología de desarrollo **_RUP_** para todo el proyecto (**TURISMO & PLANNING**).
 
 ## Tecnologías utilizadas
